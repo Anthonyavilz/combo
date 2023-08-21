@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom'
+import { useRoutes, Outlet, Link } from 'react-router-dom'
 
 import HomeHeader from './Components/mainAppComponents/HomeHeader';
 import HomePage from './Components/mainAppComponents/HomePage';
@@ -26,35 +26,68 @@ import HelmPage from './Components/totkComponents/Armor/ArmorOptions/Helm/HelmPa
 import HelmDetails from './Components/totkComponents/Armor/ArmorOptions/Helm/HelmDetails';
 
 function App() {
+
+  const routes = useRoutes([
+    {
+      path: '/',
+      element: (
+        <>
+        <HomeHeader/>
+        <Outlet/>
+        <HomeFooter/>
+        </>
+      ),
+      children: [
+        { index: true, element: <HomePage /> },
+      ],
+    },
+    {
+      path: '/naruto',
+      element: (
+        <>
+        <NarutoHeader/>
+        <Outlet/>
+        </>
+      ),
+      children: [
+        { index: true, element: <NarutoHomePage /> },
+        { path: 'handSigns', element: <HandSigns /> },
+        { path: 'createJutsu', element: <CreateJutsu /> },
+        {
+          path: 'villages',
+          element: <Outlet />,
+          children: [
+            { index: true, element: <VillagePage /> },
+            { path: 'leafVillage', element: <LeafVillage /> },
+            { path: 'sandVillage', element: <SandVillage /> },
+            { path: 'rainVillage', element: <RainVillage/> }
+            // Add other village routes...
+          ],
+        },
+      ],
+    },
+    {
+      path: '/totk',
+      element: (
+        <>
+          <TotkHeader />
+          <Outlet />
+          <TotkFooter />
+        </>
+      ),
+      children: [
+        { index: true, element: <TotkHomeScreen /> },
+        { path: 'helmArmor', element: <HelmPage /> },
+        { path: 'helmArmor/:id', element: <HelmDetails /> },
+        { path: 'armorCreator', element: <ArmorCreate /> },
+        { path: 'auth', element: <AuthForm /> },
+      ],
+    },
+  ]);
+
   return (
     <div className="App">
-      <Routes>
-        <Route path='/homePage' element={<><HomeHeader/><HomeFooter/></>} >
-          <Route index element={<HomePage/>} />
-        </Route>
-        <Route path='/naruto' element={<NarutoHeader/>}>
-          <Route index element={<NarutoHomePage/>} />
-          <Route path='homePage' element={<NarutoHomePage/>} />
-          <Route path='handSigns' element={<HandSigns/>} />
-          <Route path='createJutsu' element={<CreateJutsu/>} />
-          <Route path='villages'>
-            <Route index element={<VillagePage/>} />
-            <Route path='leafVillage' element={<LeafVillage/>} />
-            <Route path='sandVillage' element={<SandVillage/>} />
-            <Route path='cloudVillage' element={<CloudVillage/>} />
-            <Route path='earthVillage' element={<EarthVillage/>} />
-            <Route path='waterVillage' element={<WaterVillage/>} />
-            <Route path='rainVillage' element={<RainVillage/>} />
-          </Route>
-        </Route>
-        <Route path='/totk' element={<><TotkHeader/><TotkFooter/></>} >
-          <Route index element={<TotkHomeScreen/>} />
-          <Route path='helmArmor' element={<HelmPage/>} />
-          <Route path='helmArmor/:id' element={<HelmDetails/>} />
-          <Route path='armorCreator' element={<ArmorCreate/>} />
-          <Route path='auth' element={<AuthForm/>} />
-        </Route>
-      </Routes>
+      {routes}
     </div>
   );
 }

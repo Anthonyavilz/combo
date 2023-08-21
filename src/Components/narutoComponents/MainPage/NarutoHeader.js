@@ -5,16 +5,16 @@ const NarutoHeader = () => {
         <header className='navBar'>
             <h1>World of Naruto: Jutsu Maker</h1>
             <nav>
-                <Link to='/'>
+                <Link to='/naruto/homePage'>
                     <button>Home</button>
                 </Link>
-                <Link to='/villages'>
+                <Link to='/naruto/villages'>
                     <button>Villages</button>
                 </Link>
-                <Link to='/handSigns'>
+                <Link to='/naruto/handSigns'>
                     <button>Hand Signs</button>
                 </Link>
-                <Link to='/createJutsu'>
+                <Link to='/naruto/createJutsu'>
                     <button>Create Your Own Jutsu!</button>
                 </Link>
             </nav>
