@@ -25,7 +25,8 @@ naurtoApp.delete('/naruto/:id', deleteJu)
 // Sequelize Call
 const { sequelize } = require('./util/db')
 
-// ToTK Functions, Seed file, & Endpoints
+// ToTK Functions, Models, Seed file, & Endpoints
+const { User, Helm, Chest, Leg, ArmorSet } = require('./models/totkModels/totkModels')
 const { getHelms, getChestArmor, getLegArmor, addArmorSet, getArmorSets, getSelectedHelm } = require('./controllers/totkControllers/armor')
 const seed = require('./util/totkSeed')
 
