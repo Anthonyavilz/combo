@@ -16,6 +16,7 @@ totkApp.use(cors())
 const { createJu, getJu, modifyJu, deleteJu } = require('./controllers/narutoControllers/userJutsu')
 
 const narutoPort = 1234
+
 naurtoApp.post('/naruto', createJu)
 naurtoApp.get('/naruto', getJu)
 naurtoApp.put('/naruto/:id', modifyJu)
@@ -24,12 +25,12 @@ naurtoApp.delete('/naruto/:id', deleteJu)
 // Sequelize Call
 const { sequelize } = require('./util/db')
 
-// ToTK Functions, Models, Seed file, & Endpoints
-const { User, Helm, Chest, Leg, ArmorSet } = require('./models/totkModels/totkModels')
+// ToTK Functions, Seed file, & Endpoints
 const { getHelms, getChestArmor, getLegArmor, addArmorSet, getArmorSets, getSelectedHelm } = require('./controllers/totkControllers/armor')
 const seed = require('./util/totkSeed')
 
 const totkPort = 5678
+
 totkApp.get('/helms', getHelms)
 totkApp.get('/chest', getChestArmor)
 totkApp.get('/leg', getLegArmor)
