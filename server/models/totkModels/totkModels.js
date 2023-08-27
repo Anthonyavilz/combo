@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize')
 const { sequelize } = require('../../util/db')
 
 const User = sequelize.define('User', {
-    id: {
+    user_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
@@ -66,13 +66,19 @@ const ArmorSet = sequelize.define('ArmorSet', {
 });
 
 
-// Helm.hasMany(ArmorSet)
-// Chest.hasMany(ArmorSet)
-// Leg.hasMany(ArmorSet)
-
-
 ArmorSet.belongsTo(Helm, { foreignKey: 'helmArmor_id' });
 ArmorSet.belongsTo(Chest, { foreignKey: 'chestArmor_id' });
 ArmorSet.belongsTo(Leg, { foreignKey: 'legArmor_id' });
+ArmorSet.belongsTo(User, { foreignKey: 'totk_user' })
 
-module.exports = {User, Helm, Chest, Leg, ArmorSet}
+const Favorites = sequelize.define('Favorites', {
+    favorites_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    }
+})
+
+Favorites.belongsTo(ArmorSet, {foreignKey: 'usersFavorite'})
+
+module.exports = {User, Helm, Chest, Leg, ArmorSet, Favorites}
